@@ -1,0 +1,41 @@
+{% block body %}
+
+{% if result %}
+
+    Van: {{ result.origin_addresses[0] }} <br/>
+
+    Naar: {{ result.destination_addresses[0] }} <br />
+    <br/>
+
+    {% for row in result.rows %}
+        {% for element in row.elements %}
+            {% if element.status == 'OK' %}
+                afstand: {{element.distance.text }} <br />
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
+
+{% endif %}
+
+<form name="distances" method="POST" action="{{ url_for('distance')}}">
+    <dl>
+        <dt>
+            <label for="location_a">A: </label>
+        </dt>
+        <dd>
+            <input type="text" id="location_a" value="Contactweg 36 Amsterdam" name="location_a"/>
+        </dd>
+    </dl>
+    <dl>
+        <dt>
+            <label for="location_b">B: </label>
+        </dt>
+        <dd>
+            <input type="text" id="location_b" value="" name="location_b"/>
+        </dd>
+    </dl>
+    <input type="submit" value="Bereken"/>
+</form>
+
+{% endblock %}
