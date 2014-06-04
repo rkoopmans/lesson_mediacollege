@@ -1,14 +1,7 @@
 from flask import Flask, render_template, request
-import urllib
-import json
+from distance import get_distance
 
 app = Flask(__name__)
-
-
-def get_distance(location_a, location_b):
-    params = urllib.urlencode({'origins': location_a, 'destinations': location_b})
-    response = urllib.urlopen('https://maps.googleapis.com/maps/api/distancematrix/json?%s' % params)
-    return json.loads(response.read())
 
 
 @app.route('/hello')
